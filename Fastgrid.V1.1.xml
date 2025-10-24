@@ -32,61 +32,67 @@
 
 <!-- Conditional Open Graph for Posts -->
 <b:if cond='data:blog.pageType == &quot;item&quot;'>
+  <meta expr:content='data:post.url' property='og:url'/>
   <meta expr:content='data:blog.pageName' property='og:title'/>
   <meta content='article' property='og:type'/>
   <meta expr:content='data:blog.metaDescription ? data:blog.metaDescription : data:blog.pageName' property='og:description'/>
+
   <b:if cond='data:post.firstImageUrl'>
     <meta expr:content='data:post.firstImageUrl' property='og:image'/>
-    <meta expr:content='data:post.firstImageUrl' property='og:image:url'/>
   <b:else/>
-  <meta expr:content='data:blog.homepageUrl + &quot;default-og-image.jpg&quot;' property='og:image'/>
-</b:if>
-  <meta content='1200' property='og:image:width'/>
-  <meta content='630' property='og:image:height'/>
-  <meta content='image/jpeg' property='og:image:type'/>
+    <meta content='https://inteknologi.com/default-og-image.jpg' property='og:image'/>
+  </b:if>
+
   <meta expr:content='data:post.publishedDate' property='article:published_time'/>
   <meta expr:content='data:post.lastUpdatedISO8601' property='article:modified_time'/>
+  <meta expr:content='data:post.lastUpdatedISO8601' property='og:updated_time'/>
+
   <b:loop values='data:post.labels' var='label'>
     <meta expr:content='data:label.name' property='article:tag'/>
   </b:loop>
+
 <b:else/>
   <!-- For non-post pages -->
   <meta expr:content='data:blog.pageTitle' property='og:title'/>
   <meta expr:content='data:blog.metaDescription ? data:blog.metaDescription : data:blog.title' property='og:description'/>
-  <meta content='https://yourblog.com/default-og-image.jpg' property='og:image'/>
-  <meta content='1200' property='og:image:width'/>
-  <meta content='630' property='og:image:height'/>
+  <meta content='https://inteknologi.com/default-og-image.jpg' property='og:image'/>
 </b:if>
 
 <!-- Twitter Card Meta Tags -->
 <meta content='summary_large_image' name='twitter:card'/>
-<meta content='@yourtwitterhandle' name='twitter:site'/>
-<meta content='@yourtwitterhandle' name='twitter:creator'/>
+<meta content='@inteknologi' name='twitter:site'/>
+<meta content='@inteknologi' name='twitter:creator'/>
+
 <b:if cond='data:blog.pageType == &quot;item&quot;'>
   <meta expr:content='data:blog.pageName' name='twitter:title'/>
   <meta expr:content='data:blog.metaDescription ? data:blog.metaDescription : data:blog.pageName' name='twitter:description'/>
   <b:if cond='data:post.firstImageUrl'>
     <meta expr:content='data:post.firstImageUrl' name='twitter:image'/>
+  <b:else/>
+    <meta content='https://inteknologi.com/default-twitter-image.jpg' name='twitter:image'/>
+  </b:if>
 <b:else/>
-  <meta expr:content='data:blog.homepageUrl + &quot;default-twitter-image.jpg&quot;' name='twitter:image'/>
-</b:if>
   <meta expr:content='data:blog.pageTitle' name='twitter:title'/>
   <meta expr:content='data:blog.metaDescription ? data:blog.metaDescription : data:blog.title' name='twitter:description'/>
-  <meta content='https://yourblog.com/default-twitter-image.jpg' name='twitter:image'/>
+  <meta content='https://inteknologi.com/default-twitter-image.jpg' name='twitter:image'/>
 </b:if>
-
 <!-- Additional SEO Meta -->
 <meta content='id' name='geo.country'/>
 <meta content='Indonesia' name='geo.placename'/>
-<meta content='technology, coding, programming, blog, tutorial' name='keywords'/>
 <meta content='id' name='language'/>
 <meta content='general' name='rating'/>
 <meta content='7 days' name='revisit-after'/>
+  <b:if cond='data:blog.pageType == &quot;item&quot;'>
+  <meta expr:content='data:post.labels ? (data:post.labels.map(l =&gt; l.name).join(&quot;, &quot;)) : &quot;blog teknologi, tutorial coding&quot;' name='keywords'/>
+<b:else/>
+  <meta content='blog teknologi, tutorial coding, programming' name='keywords'/>
+</b:if>
+
 
 <!-- Favicon & Icons -->
 <link expr:href='data:blog.favicon' rel='icon' type='image/x-icon'/>
 <link expr:href='data:blog.favicon' rel='shortcut icon' type='image/x-icon'/>
-<link expr:href='data:blog.homepageUrl + &quot;apple-touch-icon.png&quot;' rel='apple-touch-icon'/>
+<link href='https://inteknologi.com/apple-touch-icon.png' rel='apple-touch-icon'/>
   
 <b:if cond='data:blog.pageType == &quot;item&quot;'>
   <b:if cond='data:blog.metaDescription == &quot;&quot;'>
@@ -99,10 +105,12 @@
 <b:else/>
   <meta expr:content='data:blog.metaDescription ? data:blog.metaDescription : data:blog.title + &quot; - Blog teknologi dan tutorial coding terbaru&quot;' name='description'/>
 </b:if>
-  <!-- Versi minimal (hanya 0.5 KB) -->
-<meta content='FastGrid' name='template-name'/>
-<meta content='1.0' name='template-version'/>
-<meta content='inteknologi.com' name='template-author'/>
+<!-- ===== TEMPLATE META INFORMATION ===== -->
+<meta content='FastGrid V1.1' name='template-name'/>
+<meta content='1.1' name='template-version'/>
+<meta content='Inteknologi.com - Blog Teknologi dan Tutorial' name='template-author'/>
+<meta content='https://inteknologi.com' name='template-url'/>
+  
   <b:skin><![CDATA[
 
 html,body{height:100%;width:100%;font-family:Arial,Helvetica,sans-serif;line-height:1.5;background-color:#fff;color:#333;scroll-behavior:smooth}
@@ -119,7 +127,6 @@ figure{margin:0}
 
 /* ===== CSS VARIABLES FOR THEMING ===== */
 :root {
-  /* Colors */
   --primary-color: #2563eb;
   --primary-dark: #1d4ed8;
   --secondary-color: #64748b;
@@ -130,9 +137,9 @@ figure{margin:0}
   --bg-secondary: #f8fafc;
   --border-color: #e5e7eb;
   --header-bg: #333333;
- 
-  /* Typography */
-  --font-family: ' Arial', Helvetica, sans-serif;
+  --hover-link-color: #3498db;
+  
+  --font-family: 'Arial', Helvetica, sans-serif; 
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
@@ -140,7 +147,6 @@ figure{margin:0}
   --font-size-xl: 1.25rem;
   --font-size-2xl: 1.5rem;
   
-  /* Spacing */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -150,20 +156,17 @@ figure{margin:0}
   --space-8: 2rem;
   --space-10: 2.5rem;
   
-  /* Border Radius */
   --radius-sm: 0.125rem;
   --radius: 0.25rem;
   --radius-md: 0.375rem;
   --radius-lg: 0.5rem;
   --radius-xl: 0.75rem;
   
-  /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   
-  /* Breakpoints */
   --breakpoint-sm: 576px; 
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
@@ -171,7 +174,7 @@ figure{margin:0}
 }
 /* ======================================================= 1. RESET & ACCESSIBILITY ======================================================= */
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:100%;max-width:100%;overflow-x:overflow-x:clip}
+html, body { width: 100%; max-width: 100%; overflow-x: clip; }
 body,.main-wrapper,.content-wrapper,.header-container,.footer-top{overflow-x:overflow-x: clip;}
 .container,.main-wrapper,.content-wrapper{box-sizing:border-box;width:100%}
 *[style*="width"]{max-width:100%!important}
@@ -184,17 +187,10 @@ body{font-family:var(--font-family);background-color:var(--bg-color);color:var(-
 /* ======================================================= 2. HEADER & NAVIGASI ======================================================= */
 .header-left .description,
 .header .description {display: none !important; visibility: hidden !important;}
-
 .main-header{background:var(--header-bg);width:100%;border-bottom:1px solid #ddd;position:relative;color:var(--bg-color);padding:3px}
 .header-wrapper{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding-top:10px;padding-bottom:10px;padding-left:var(--space-6);padding-right:var(--space-6)}
 .header-container{max-width:1200px;margin-left:auto;margin-right:auto;padding:0 15px}
-.header-content{
-    display:flex !important;
-    /* Ubah dari space-between (menyebar) menjadi flex-start (mengizinkan margin:auto) */
-    justify-content:flex-start !important; 
-    align-items:center;
-    padding:10px 15px}
-
+.header-content{display:flex !important;justify-content:flex-start !important; align-items:center;padding:10px 15px}
 .header-left{flex-shrink:0;margin:0 var(--space-1) 0 0;padding:0;display:flex;align-items:center; margin-bottom: 10px !important;}
 .header-left #header-inner,.header-left .title-wrapper,.header-left .widget-content{margin:0;padding:0}
 .header-left .title{margin:0;padding:0;line-height:1.2;padding-top:0px}
@@ -213,8 +209,7 @@ body{font-family:var(--font-family);background-color:var(--bg-color);color:var(-
 #navbar-menu .nav-list {list-style: none !important; margin: 0;padding: 0;
 text-align:center;display: inline;}
 #navbar-menu .nav-list li {display: inline-block;margin: 0 2px;padding: 0;}
-#navbar-menu .nav-list li a {padding: 15px 10px;text-decoration: none;color: #fff;font-size: .95rem;display: block;position: relative;
- -webkit-transition: all .3s ease;-moz-transition: all .3s ease;-o-transition: all .3s ease; transition: all .3s ease;}
+#navbar-menu .nav-list li a {padding: 15px 10px;text-decoration: none;color: #fff;font-size:var(--font-size-base);display: block;position: relative;-webkit-transition: all .3s ease;-moz-transition: all .3s ease;-o-transition: all .3s ease; transition: all .3s ease;}
 
 #navbar-menu .nav-list li a::after {content: '';position: absolute;bottom: 10px;left: 50%;width: 0;height: 2px;background-color: #007bff;transition: width 0.3s ease-out, transform 0.3s ease-out;transform: translateX(-50%);}
 #navbar-menu .nav-list li a:hover {transform: translateY(-10px); text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
@@ -248,17 +243,13 @@ text-align:center;display: inline;}
 .featured-below-section .post-summary {position: relative;display: flex;flex-direction: column;background: #fff;border-radius: 12px;overflow: hidden;box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);transition: transform 0.3s ease, box-shadow 0.3s ease;}
 .featured-below-section .post-summary:hover {transform: translateY(-3px);box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);}
 
-/* ==== Gambar ==== */ 
 .featured-below-section .image {order: -1;width: 100%; aspect-ratio: 16/9;object-fit: cover;display: block;border-radius: 12px;transition: transform 0.3s ease, filter 0.3s ease;}
 .featured-below-section .post-summary:hover .image {filter: brightness(0.9);transform: scale(1.02);}
 .featured-below-section .post-summary h2 {position: absolute;bottom: 15px;left: 50%;transform: translateX(-50%);width: 90%;text-align: center;color: #fff;font-size: 1.2rem;font-weight: 600;margin: 0;z-index: 2;}
 .featured-below-section .post-summary h2 a {color: #fff;text-decoration: none;text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);}
 .featured-below-section .post-summary::after {content: "";position: absolute;bottom: 0;left: 0;width: 100%;height: 40%;background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));border-radius: 12px;z-index: 1;}
 .featured-below-section p {font-size: 0.95rem;color: #555;line-height: 1.6;margin: 12px 15px 15px;order: 2;}
-
-/* ===== FIX BLURRY FEATURED POST IMAGE ===== */
 .featured-below-section .image {image-rendering: -webkit-optimize-contrast;image-rendering: crisp-edges;transform: translateZ(0);}
-
 /* ======================================================= 3. LAYOUT  GRID (MAIN CONTENT) ======================================================= */
 .content-wrapper{display:grid;grid-template-columns:2fr 1fr;gap:2rem;max-width:1200px;margin:0 auto;padding:0 20px;padding-top:18px;border-top:1px solid #lightgray;}
 .grid{display:grid;gap:var(--space-6)} 
@@ -310,15 +301,14 @@ background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(242, 216, 216
 .post-body h2 { margin-top: 2em !important;margin-bottom: 1em !important;}
 .post-body p { margin-bottom: 1em !important;line-height: 1.6 !important;}
 .post-body a { color: #007bff;text-decoration: none;}
-.post-body a:hover {color: #0056b3; /* Biru yang lebih gelap */text-decoration: underline; /* Menambahkan garis bawah saat di-hover */}
+.post-body a:hover {color: #0056b3; text-decoration: underline;}
 a.read-more {color:#fff;}
 
 .button-wrapper {display: flex;justify-content: space-around; padding: 0 10px;margin: 20px 0;}
-a.button {text-decoration: none !important; border: none;padding: 14px 25px;text-align: center;display: inline-block;font-size: 16px;transition-duration: 0.4s;cursor: pointer;border-radius: 5px;font-weight: bold; color:#fff;width: 130px}
+a.button {text-decoration: none !important; border: none;padding: 14px 25px;text-align: center;display: inline-block;font-size: 16px;transition-duration: 0.4s;cursor: pointer;border-radius: 5px;font-weight: bold; color:#fff;width: auto}
 
 .button1 { color: white;border: 2px solid #04AA6D;background: #28a745;border: 2px solid #04AA6D}
 .button1:hover {background-color: #04AA6D;color: white;}
-
 .button2 {background:#007bff; color: white; border: 2px solid #007bff;}
 .button2:hover {background-color: #008CBA;color: white;}
 
@@ -337,13 +327,14 @@ a.button {text-decoration: none !important; border: none;padding: 14px 25px;text
 post-footer-line.post-footer-line-1{border-bottom:1px solid LightGray;padding-bottom:3px;border-top:1px solid LightGray;padding-top:3px}
 .post-footer-line.post-footer-line-1 span{margin-left:5px;font-size:14px}
 .post-footer-line.post-footer-line-2{border:1px solid LightGray;padding:4px 4px;margin-top:5px}
-/* Styling untuk post-footer-line-1 HANYA pada single post ( Meta Data ) */
+
 .single-post-footer-border {border-bottom: 1px solid LightGray;padding-bottom: 3px;border-top: 1px solid LightGray;padding-top: 3px;}
 .single-post-footer-border span {margin-left: 5px;font-size: 14px;}
 .mobile-link-button{flex:0 0 auto}
 
-#backToTopBtn{display:none;position:fixed;bottom:50px;right:20px;z-index:99;border:none;outline:none;background-color:#04AA6D;color:white;cursor:pointer;padding:12px 15px;border-radius:50%;font-size:18px;opacity:.8;transition:opacity .3s,transform .3s;box-shadow:0 2px 5px rgba(0,0,0,.3)}
-#backToTopBtn:hover{opacity:1;background-color:#038d59}
+#backToTopBtn {display: none;position: fixed;bottom: 50px;right: 20px;z-index: 99;border: none;outline: none;background-color: #04AA6D;color: white;cursor: pointer;padding: 12px 15px;border-radius: 50%;font-size: 18px;opacity: 0.8;transition: opacity 0.3s, transform 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.3);}
+#backToTopBtn:hover {opacity: 1;background-color: #038d59;}
+
 /* ======================================================= 4. POST SNIPPET & DETAIL - Blog Pager (Pagination) ======================================================= */
 .blog-pager{display:flex;justify-content:center;align-items:center;gap:10px;margin:27px 0;padding:0 20px}
 .blog-pager-newer-link,.blog-pager-older-link,.home-link{display:flex;align-items:center;justify-content:center;width:35px!important;height:35px!important;font-size:14px!important;background:var(--primary-color,#2563eb);color:white;text-decoration:none;border-radius:50%;transition:all .3s ease;border:2px solid transparent}
@@ -366,16 +357,15 @@ post-footer-line.post-footer-line-1{border-bottom:1px solid LightGray;padding-bo
 .share-btn:active{transform:translateY(0);box-shadow:none}
 /* ======================================================= 5. SIDEBAR & WIDGETS ======================================================= */
 
-.sidebar{padding:3px;border:1px solid #e3e6f0;border-radius:12px;box-shadow:0 5px 25px rgba(0,0,0,.08);background:linear-gradient(135deg,#ffffff 0%,#f8f9fa 100%)}
+.sidebar{padding:3px;border:1px solid #e3e6f0;border-radius:12px;box-shadow:0 5px 25px rgba(0,0,0,.08);}
 .sidebar h2{font-size:1.3rem;color:#2c3e50;margin-bottom:10px;padding-bottom:12px;border-bottom:3px solid #3498db;position:relative}
 .sidebar h2::after{content:'';position:absolute;bottom:-3px;left:0;width:50px;height:3px;background:#e74c3c}
 .sidebar .widget{padding:5px;border-radius:8px;transition:transform .3s ease,box-shadow .3s ease}
 .sidebar .widget:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,.1)}
-/* WIDGET POSTINGAN POPULER (POPULAR POSTS) */
-.sidebar .widget-content.popular-posts{padding:10px 0}
 
+.sidebar .widget-content.popular-posts{padding:5px 0}
 .sidebar .popular-posts ul{list-style:none;margin:0;padding:0}
-.sidebar .popular-posts li{margin-bottom:15px;padding-bottom:15px;border-bottom:1px solid #eee;transition:background-color .3s ease}
+.sidebar .popular-posts li{margin-bottom:10px;padding-bottom:15px;border-bottom:1px solid #eee;transition:background-color .3s ease}
 .sidebar .popular-posts li:hover{background-color:#f9f9f9;border-radius:4px}
 .sidebar .popular-posts li:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
 .popular-posts .item-content{display:flex;align-items:flex-start;gap:15px}
@@ -388,7 +378,7 @@ post-footer-line.post-footer-line-1{border-bottom:1px solid LightGray;padding-bo
 .popular-posts .item-title a:hover{color:#007bff}
 .popular-posts .item-snippet{margin-top:0;font-size:.8rem;color:#666;line-height:1.5;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 
-aside#sidebar-below-header #PopularPosts2 .widget-content.popular-posts ul li {display: flex;align-items: flex-start;gap: 12px;margin-bottom: 15px;padding-bottom: 15px;border-bottom: 1px solid #eee;transition: background-color 0.3s ease;}
+aside#sidebar-below-header #PopularPosts2 .widget-content.popular-posts ul li {display: flex;align-items: flex-start;gap: 12px;margin-bottom: 15px;border-bottom: 1px solid #eee;transition: background-color 0.3s ease;}
 aside#sidebar-below-header #PopularPosts2 .item-content {display: block;flex-direction: row;align-items: flex-start;gap: 12px;}
 aside#sidebar-below-header #PopularPosts2 .item-thumbnail {width: 90px;height: 70px;flex-shrink: 0;overflow: hidden;border-radius: 8px;box-shadow: 0 2px 5px rgba(0,0,0,.1);}
 aside#sidebar-below-header #PopularPosts2 .item-thumbnail img {width: 100%;height: 100%;object-fit: cover;transition: transform .3s ease;}
@@ -398,9 +388,7 @@ aside#sidebar-below-header #PopularPosts2 .item-title {margin: 0 0 4px 0;line-he
 aside#sidebar-below-header #PopularPosts2 .item-title a {color: #333;text-decoration: none;transition: color .2s ease;}
 aside#sidebar-below-header #PopularPosts2 .item-title a:hover {color: #007bff;}
 aside#sidebar-below-header #PopularPosts2 .item-snippet {font-size: .8rem;color: #666;line-height: 1.5;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;}
-
 /* ======================================================= 6. FOOTER UTAMA (Desktop) ======================================================= */
-
 .Fastgrid-footer {background: #333;color: #fff;padding: 10px 0 20px;margin-top:0px;border-top: 0.5px solid #3498db;clear: both;}
 .footer-content {max-width: 1200px;margin: 0 auto;padding: 0 5px;text-align: center;display:flex;justify-content:space-between;border-bottom:0px solid #708090;}
 .footer-menu-wrapper {margin-bottom: 0px;}
@@ -431,7 +419,7 @@ aside#sidebar-below-header #PopularPosts2 .item-snippet {font-size: .8rem;color:
 aside#sidebar-below-header #PopularPosts2 .item-thumbnail {width: 80px;height: 60px;}
 aside#sidebar-below-header #PopularPosts2 .item-title {font-size: 0.9rem;}}
 
-@media (max-width:768px){.header-content{justify-content:space-between}.header-right-mobile{order:3;justify-content:space-between;width:100px;margin-left: auto !important}.search-wrapper{order:1;margin-left:0;position:relative;z-index:1000}#menu-toggle{order:2;z-index:1000}.search-icon svg{fill:#fff;background:transparent}#searchbox input[type="text"]{left:-170px;right:auto;top:50%;transform:translateY(-50%) scaleX(0.95);width:0;padding:0;border:1px solid #ccc;border-radius:4px;opacity:0;background:#fff;transition:width .3s ease,left .3s ease,opacity .3s ease}#searchbox.active input[type="text"]{width:160px;left:-170px;opacity:1}.main-header{z-index:100}.content-wrapper{grid-template-columns:1fr;gap:var(--space-6);padding:0 var(--space-4);margin-top:15px}.post-grid{grid-template-columns:150px 1fr;gap:15px}.post-meta{grid-column:1 / -1}.menu-list{flex-direction:column;gap:0}.grid--sidebar{grid-template-columns:1fr}.header-center{display:none!important}.header-right-mobile{display:flex!important;align-items:center;margin-right:10px} 
+@media (max-width:768px){.header-content{justify-content: space-between;}.header-right-mobile{order:3;justify-content: space-between;width:100px;margin-left: auto !important; !important}.search-wrapper{order:1;margin-left:0;position:relative;z-index:1000}#menu-toggle{order:2;z-index:1000}.search-icon svg{fill:#fff;background:transparent}#searchbox input[type="text"]{left:-170px;right:auto;top:50%;transform:translateY(-50%) scaleX(0.95);width:0;padding:0;border:1px solid #ccc;border-radius:4px;opacity:0;background:#fff;transition:width .3s ease,left .3s ease,opacity .3s ease}#searchbox.active input[type="text"]{width:160px;left:-170px;opacity:1}.main-header{z-index:100}.content-wrapper{grid-template-columns:1fr;gap:var(--space-6);padding:0 var(--space-4);margin-top:15px}.post-grid{grid-template-columns:150px 1fr;gap:15px}.post-meta{grid-column:1 / -1}.menu-list{flex-direction:column;gap:0}.grid--sidebar{grid-template-columns:1fr}.header-center{display:none!important}.header-right-mobile{display:flex!important;align-items:center;margin-right:10px} 
 
 #menu-toggle{display:block!important;color:#ffffff!important;filter:none!important;width:40px!important;height:40px!important;background-color:transparent!important;border:none!important;padding:0!important;cursor:pointer}#menu-toggle span{background-color:#ffffff!important;display:block!important;height:2px!important;width:25px!important;margin:5px 0!important;transition:all .3s ease-in-out!important}#menu-toggle span:nth-child(2){width:15px!important;margin:5px!important;margin-left:-4!important;margin-right:auto!important}#menu-toggle.active span:nth-child(1){transform:translateY(7px) rotate(45deg)!important}#menu-toggle.active span:nth-child(2){opacity:0!important;transform:translateX(100%)!important}#menu-toggle.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)!important}
 #navbar-menu {display: none !important;position: absolute;top: 100%;left: 0;width: 100%;background-color: #333 !important; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);z-index: 999; flex: 0 0 100% !important;border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;}
@@ -456,11 +444,8 @@ aside#sidebar-below-header #PopularPosts2 .item-title {font-size: 0.9rem;}}
 .social-icons a {width: 40px; height: 40px;}
 .social-icons svg {width: 20px;height: 20px;}
 .copyright { text-align:center; }
-
 #footer-ads .widget-content {margin: 15px 10px;padding: 12px;}
-
 }
-
 @media (max-width:576px){
 .content-wrapper{grid-template-columns:1fr;gap:1.5rem}.sidebar{margin-top:20px}.post-grid{grid-template-columns:100px 1fr;gap:15px}.post-thumbnail-side img{width:100px;height:75px}.post-meta{grid-column:1 / -1}.footer-top{flex-direction:column;align-items:center;text-align:center}.footer-right{margin-top:10px}.social-icons a{margin:0 10px}.popular-posts .item-thumbnail{width:70px;height:55px}.popular-posts .item-title{font-size:.9rem}.popular-posts .item-snippet{-webkit-line-clamp:1}
 aside#sidebar-below-header #PopularPosts2 .item-thumbnail {width: 75px;height: 60px;}
@@ -480,59 +465,50 @@ aside#sidebar-below-header #PopularPosts2 .item-snippet {font-size: 0.78rem;}
 .social-icons svg { width: 18px;height: 18px;}
 .copyright {order: 4; margin-top: 10px;padding-top: 10px;font-size: 12px;padding-left:3px !important;0px;margin-left:5px !important;text-align:center;}
 }
-
 @media (max-width:480px){
-  .header-container,.header-content{display:flex!important;justify-content:space-between!important;align-items:center!important;width:100%!important;padding:8px 15px!important;box-sizing:border-box!important;}
-  .header-left{flex:1 1 auto!important;display:flex!important;justify-content:flex-start!important;align-items:center!important;}
-  .header-left .titlewrapper h1.title a{color:#fff!important;font-size:1.2rem!important;font-weight:700!important;text-decoration:none!important;margin-left:5px!important;}
-  .header-center{display:none!important;}
-  .header-right-mobile{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:8px!important;flex-shrink:0!important;margin-left:auto!important;}
+.header-container,.header-content{display:flex!important;justify-content:space-between!important;align-items:center!important;width:100%!important;padding:8px 15px!important;box-sizing:border-box!important;}
+.header-left{flex:1 1 auto!important;display:flex!important;justify-content:flex-start!important;align-items:center!important;}
+.header-left .titlewrapper h1.title a{color:#fff!important;font-size:1.2rem!important;font-weight:700!important;text-decoration:none!important;margin-left:5px!important;}
+.header-center{display:none!important;}
+.header-right-mobile{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:8px!important;flex-shrink:0!important;margin-left:auto!important;}
 
-  .hamburger-menu{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;width:36px!important;height:36px!important;background:none!important;border:none!important;cursor:pointer!important;padding:0!important;}
-  .hamburger-menu span{display:block!important;width:24px!important;height:2px!important;background:#fff!important;margin:4px 0!important;transition:all .3s ease!important;}
+.hamburger-menu{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;width:36px!important;height:36px!important;background:none!important;border:none!important;cursor:pointer!important;padding:0!important;}
+.hamburger-menu span{display:block!important;width:24px!important;height:2px!important;background:#fff!important;margin:4px 0!important;transition:all .3s ease!important;}
 
-  .main-nav{display:none;}
-  .main-nav.active{display:flex!important;flex-direction:column!important;align-items:center!important;width:100%!important;background:#222!important;padding:10px 0!important;border-top:1px solid #333!important;}
-  .main-nav.active ul{list-style:none!important;padding:0!important;margin:0!important;width:100%!important;}
-  .main-nav.active li{margin:5px 0!important;}
-  .main-nav.active a{color:#fff!important;text-decoration:none!important;padding:10px;display:block;transition:background .3s;}
-  .main-nav.active a:hover{background:rgba(255,255,255,.1);}
-  .mobile-nav.show{margin-top: 18px;}
+.main-nav{display:none;}
+.main-nav.active{display:flex!important;flex-direction:column!important;align-items:center!important;width:100%!important;background:#222!important;padding:10px 0!important;border-top:1px solid #333!important;}
+.main-nav.active ul{list-style:none!important;padding:0!important;margin:0!important;width:100%!important;}
+.main-nav.active li{margin:5px 0!important;}
+.main-nav.active a{color:#fff!important;text-decoration:none!important;padding:10px;display:block;transition:background .3s;}
+.main-nav.active a:hover{background:rgba(255,255,255,.1);}
+.mobile-nav.show{margin-top: 18px;}
 
-  #searchbox.active input[type="text"],
-  .searchbox.active input[type="text"]{left:-130px;width:120px;}
+#searchbox.active input[type="text"],
+.searchbox.active input[type="text"]{left:-130px;width:120px;}
 
-  /* === FEATURED POST & SIDEBAR BELOW HEADER (F/S) === */
-  .header-container {flex-direction: column;}
-  /* MODIFIKASI: Mengatur kedua elemen menjadi 100% */
-  .featured-below {flex: 1 1 100% !important;max-width: 100% !important;margin-bottom: 20px;}
-  .featured-below .post-summary a {height: auto !important;}
-  .sidebar-below-header {flex: 1 1 100% !important;max-width: 100% !important;margin-top: 0 !important;}
+.header-container {flex-direction: column;}
+.featured-below {flex: 1 1 100% !important;max-width: 100% !important;margin-bottom: 20px;}
+.featured-below .post-summary a {height: auto !important;}
+.sidebar-below-header {flex: 1 1 100% !important;max-width: 100% !important;margin-top: 0 !important;}
+.featured-below-section .post-summary h2 a {font-size: 1.2rem;bottom: 12px;width: 92%;}
+.featured-below-section p {font-size: 0.85rem;}
 
-  /* --- Featured Post Detail (F/S) --- */
-  .featured-below-section .post-summary h2 a {font-size: 1.2rem;bottom: 12px;width: 92%;}
-  .featured-below-section p {font-size: 0.85rem;}
+aside#sidebar-below-header #PopularPosts2 .item-content {flex-direction: row;align-items: center;gap: 10px;}
+aside#sidebar-below-header #PopularPosts2 .item-thumbnail {width: 75px;height: 55px;}
+aside#sidebar-below-header #PopularPosts2 .item-thumbnail img {object-fit: cover;image-rendering: -webkit-optimize-contrast;}
+aside#sidebar-below-header #PopularPosts2 .item-title {font-size: 0.85rem;}
+aside#sidebar-below-header #PopularPosts2 .item-snippet {font-size: 0.75rem;}
 
-  /* --- Popular Posts Sidebar (F/S) --- */
-  aside#sidebar-below-header #PopularPosts2 .item-content {flex-direction: row;align-items: center;gap: 10px;}
-  aside#sidebar-below-header #PopularPosts2 .item-thumbnail {width: 75px;height: 55px;}
-  aside#sidebar-below-header #PopularPosts2 .item-thumbnail img {object-fit: cover;image-rendering: -webkit-optimize-contrast;}
-  aside#sidebar-below-header #PopularPosts2 .item-title {font-size: 0.85rem;}
-  aside#sidebar-below-header #PopularPosts2 .item-snippet {font-size: 0.75rem;}
+.blog-pager{gap:10px;}
+.blog-pager-newer-link,
+.blog-pager-older-link,
+.home-link{width:35px;height:35px;}
+.blog-pager svg{width:16px;height:16px;}
+.blog-pager-newer-link,.blog-pager-older-link,.home-link{width:30px!important;height:30px!important;font-size:12px!important;}
 
-  /* === POST CONTENT & PAGINATION (C) === */
-  .blog-pager{gap:10px;}
-  .blog-pager-newer-link,
-  .blog-pager-older-link,
-  .home-link{width:35px;height:35px;}
-  .blog-pager svg{width:16px;height:16px;}
-  /* --- Pagination Duplikasi/Override --- */
-  .blog-pager-newer-link,.blog-pager-older-link,.home-link{width:30px!important;height:30px!important;font-size:12px!important;}
-
-  /* === SHARE BUTTONS (C) === */
-  .share-buttons-container{flex-wrap:wrap;justify-content:space-between;gap:2px;}
-  .share-btn{width:calc(33.33% - 2px);flex-basis:calc(33.33% - 2px);padding:8px 3px;font-size:.75rem;height:35px;}
-  .share-btn:nth-last-child(-n+2){margin-top:2px;}
+.share-buttons-container{flex-wrap:wrap;justify-content:space-between;gap:2px;}
+.share-btn{width:calc(33.33% - 2px);flex-basis:calc(33.33% - 2px);padding:8px 3px;font-size:.75rem;height:35px;}
+.share-btn:nth-last-child(-n+2){margin-top:2px;}
 
 .Fastgrid-footer-menu ul {gap: 6px;}
 .Fastgrid-footer-menu li a {padding: 6px 10px;font-size: 12px;}
@@ -541,7 +517,6 @@ aside#sidebar-below-header #PopularPosts2 .item-snippet {font-size: 0.78rem;}
 .social-icons svg {width: 16px;height: 16px;}
 .copyright {font-size: 11px;}
 }
-
 @media (max-width: 360px) {.share-btn{width:calc(50% - 2px);flex-basis:calc(50% - 2px);font-size:.7rem}.share-btn:nth-child(n+3){margin-top:3px}
 aside#sidebar-below-header #PopularPosts2 .item-thumbnail {width: 70px;height: 50px;}
 aside#sidebar-below-header #PopularPosts2 .item-title {font-size: 0.83rem;}
@@ -555,20 +530,14 @@ aside#sidebar-below-header #PopularPosts2 .item-snippet {font-size: 0.7rem;}.fea
 .social-icons a {width: 34px;height: 34px;}
 .social-icons svg {width: 15px; height: 15px;}
 }
-
 pre {max-width: 100%;max-height: 40vh;overflow-y: auto;overflow-x: auto;white-space: pre-wrap;word-wrap: break-word;padding: 5px;border: 3px solid #9C9C9C;padding-left:5px;border-radius:5px;margin-bottom:5px;}
 pre, code {font-family: 'Courier New', Courier, 'Lucida Console', Monaco, monospace;font-size: 15px;line-height: 1.5;}
 code {padding: 2px 6px;border-radius: 3px;color: #343434;border:1px solid #630202; }
 
-#backToTopBtn{display:none;position:fixed;bottom:50px;right:20px;z-index:99;border:none;outline:none;background-color:#04AA6D;color:white;cursor:pointer;padding:12px 15px;border-radius:50%;font-size:18px;opacity:.8;transition:opacity .3s,transform .3s;box-shadow:0 2px 5px rgba(0,0,0,.3)}
-#backToTopBtn:hover{opacity:1;background-color:#038d59}
-
 .table-responsive {overflow-x: auto; margin: 15px 0;}
 .table-responsive table {width: 100%;border-collapse: collapse;font-family: Arial, sans-serif;margin-bottom: 20px;}
-
 .table-responsive th {background-color: #007bff; color: white;padding: 12px 15px;text-align: left;border: 1px solid #dee2e6;}
 .table-responsive td {padding: 10px 15px;border: 1px solid #dee2e6;vertical-align: top;}
-
 .table-responsive tbody tr:nth-child(even) {background-color: #f8f9fa; }
 .table-responsive tbody tr:hover {background-color: #e2e6ea; }
 
@@ -581,7 +550,6 @@ code {padding: 2px 6px;border-radius: 3px;color: #343434;border:1px solid #63020
 .ads-section iframe,.ads-section ins {max-width: 100%;height: auto;display: inline-block;}
 .ads-in-article {margin: 25px auto;text-align: center;max-width: 100%;}
 .ads-in-article ins,.ads-in-article iframe {max-width: 100%;height: auto;display: inline-block;}
-
 .ads-in-article, .ads-inserted {margin: 25px auto;text-align: center;max-width: 100%;}
 .ads-in-article ins,
 .ads-in-article iframe,
@@ -591,32 +559,26 @@ code {padding: 2px 6px;border-radius: 3px;color: #343434;border:1px solid #63020
 #footer-iklan-slot {width: 100%;background: #333;color#ffff;border:1px solid gray; padding: 20px 0;text-align: center;  display: block; margin: 0 auto; }
 #ads_below_header { border:1px solid gray ;width: 100%}
 
-/* === ARTIKEL TERKAIT TANPA GAMBAR === */
 .Fastgrid {background: #fff;border-radius: 8px;box-shadow: 0 4px 12px rgba(0,0,0,0.08);padding: 10px;margin: 20px 0;font-family: "Inter", "Roboto", Arial, sans-serif;}
 .Fastgrid .judul {display: block;text-align: center;font-size: 17px;font-weight: 700;margin-bottom: 12px;color: var(--warna-utama);text-transform: uppercase;letter-spacing: 0.5px;}
-.Fastgrid ul {list-style: none;margin: 0;padding: 0;display: flex;flex-direction: column;gap:5px;}
-.Fastgrid li {background: #f9f9f9;border-radius: 6px;transition: all 0.3s ease;}
+.Fastgrid ul {background: #2c2c2c;list-style: none;margin: 0;padding: 0;display: flex;flex-direction: column;gap:5px;border-radius: 6px;}
+.Fastgrid li {border-radius: 6px;transition: all 0.3s ease;}
 .Fastgrid li:hover {background: #fff5eb;border-left-color: var(--warna-hover);transform: translateX(3px);}
-.Fastgrid li a {display: block;padding: 8px 10px;color: #333;font-weight: 400;text-decoration: none;transition: color 0.3s ease;}
+.Fastgrid li a {display: block;padding: 5px 10px;color: #fff;font-weight: 400;text-decoration: none;transition: color 0.3s ease;}
 .Fastgrid li a:hover {color: var(--primary-color);}
 
-/* =======================================
-   2. DARK MODE STYLES (CSS)
-   ======================================= */
-
 .dark-mode {
-  --main-bg-color: #1a1a1a;    /* Latar belakang utama (Body) */
-  --card-bg-color: #2c2c2c;    /* Latar belakang kartu/elemen */
-  --hover-bg-color: #383838;   /* Latar belakang saat di-hover */
-  --text-color-white: #ffffff;
-  --link-color: #79abff;
-  --border-color: #444444;}
-
-/* === DARK MODE STYLING === */
-
-body.dark-mode {background-color: var(--main-bg-color) !important;background: var(--main-bg-color) !important; color: var(--text-color-white) !important;}
+  --main-bg-color:#2c2c2c;
+  --card-bg-color:#2c2c2c;
+  --hover-bg-color:#383838;
+  --text-color-white:#ffffff;
+  --link-color:#79abff;
+  --border-color:#444444;
+}
+html {background-color: var(--main-bg-color) !important;color: var(--text-color-white) !important;}
+body.dark-mode {background-color: var(--main-bg-color) !important;color: var(--text-color-white) !important;}
 html, body, .main-wrapper, .header-wrapper, .post-body, .widget-content, .FeaturedPost, #FeaturedPost, .post, .post-item, .post-info, h1, h2, h3, h4, h5, p, a, li, ul, div {
-  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;}
+transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;}
 
 #darkModeToggle {position: fixed;top: 100px;right: 20px;z-index: 9999;cursor: pointer; background-color: #424242; color: white; border: none;border-radius: 50%; width: 45px;height: 45px;display: flex;align-items: center;justify-content: center;font-size: 20px;box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); opacity: 0.9;}
 #darkModeToggle:hover {background-color: #555555;opacity: 1;}
@@ -632,7 +594,7 @@ html, body, .main-wrapper, .header-wrapper, .post-body, .widget-content, .Featur
 .dark-mode .related-posts, .dark-mode .related-posts-section, .dark-mode .Fastgrid, 
 .dark-mode .featured-below-section .post-summary, .dark-mode .main-wrapper, .dark-mode .post-body, .dark-mode .widget-content, .dark-mode .footer-wrapper, .dark-mode .post {background-color: var(--card-bg-color) !important;background: var(--card-bg-color) !important;border-color: var(--border-color) !important;}
 .dark-mode #ads_below_header, .dark-mode .ads-section, .dark-mode #HTML1, .dark-mode #HTML\.v4, .dark-mode #HTML\.v4 .widget-content, .dark-mode #HTML1 .widget-content,
-.dark-mode .header-below-wrapper, .dark-mode .header-below-wrapper .header-container, .dark-mode .featured-below-section {background-color: var(--main-bg-color) !important;background: var(--main-bg-color) !important;margin: 0 !important; padding: 0 !important; border-color: var(--border-color) !important;border: none !important;box-shadow: none !important;}
+.dark-mode .header-below-wrapper, .dark-mode .header-below-wrapper .header-container, .dark-mode .featured-below-section {background-color: var(--card-bg-color) !important;background: var(--card-bg-color) !important;margin: 0 !important; padding: 0 !important; border-color: var(--border-color) !important;border: none !important;box-shadow: none !important;}
 .dark-mode .post-summary:hover, .dark-mode .post-item:hover, .dark-mode .post:hover {background-color: var(--card-bg-color) !important;background: var(--card-bg-color) !important; box-shadow: none !important; }
 
 .dark-mode *, 
@@ -656,70 +618,322 @@ html, body, .main-wrapper, .header-wrapper, .post-body, .widget-content, .Featur
     .post-body ul li::before { display:none;color: #f0f0f0; }
     .post-body ol li {color: #cccccc;}
     .post-body ol li p,.post-body ol li span, .post-body ol li div {color: #e0e0e0; }
-
     .post-body blockquote {background-color: #2a2a2a; border-left-color: var(--primary-color, #8ab4f8);color: #b0b0b0;}
     .post-body ul li::before {color: #f0f0f0 !important; }
     .post-body ul li {color: #cccccc; }
 }
+/* Sembunyikan hanya di halaman beranda.html */
+body[class*="beranda"] h2.post-title.entry-title,
+body:has(a[href*="beranda.html"]) h2.post-title.entry-title {
+    display: none !important;
+}
 
+/* Atau gunakan selector berdasarkan URL */
+html:not([class]) h2.post-title.entry-title {
+    display: none !important;
+}
  ]]></b:skin>
-  
-  <b:if cond='data:view.isPage'>
+  <b:if cond='data:blog.pageName == &quot;Gridspeed vs Fastgrid&quot;'>
   <style>
-    /* ============================================== */
-    /* KONDISI UNTUK SEMUA HALAMAN STATIS (PAGES)     */
-    /* ============================================== */
-
-    /* 1. Menghilangkan Sidebar */
-    #sidebar-wrapper {      
-        display: none !important;
+    /* ===== LANDING PAGE STYLING - GRIDSPEED VS FASTGRID ===== */
+    .header-below-wrapper {
+      display: none !important;
     }
-    .blog-posts .post-outer-container:not(.page) {display: none !important; }
-
-    #main-wrapper {  width: 100% !important; max-width: none !important;float: none !important; /margin: 0 !important;padding: 0 !important;} .content-wrapper { display: grid
-;
-    grid-template-columns: 2fr;}
-    .page .post-body,.page .post-footer {max-width: 1000px; margin: 0 auto !important; padding: 20px;box-sizing: border-box; }
+    
+    /* 2. Menyembunyikan featured post section */
+    .featured-below-section {
+      display: none !important;
+    }
+    
+    /* 3. Menyembunyikan sidebar di bawah header */
+    #sidebar-below-header {
+      display: none !important;
+    }
+    
+    /* 4. Menyembunyikan sidebar utama */
+    #sidebar-wrapper {
+      display: none !important;
+    }
+    
+    /* 5. Menyembunyikan postingan blog biasa */
+    .blog-posts .post-outer-container:not(.page) {
+      display: none !important;
+    }
+    
+    /* 6. Main content full width */
+    #main-wrapper {
+      width: 100% !important;
+      max-width: none !important;
+      float: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    /* 7. Content wrapper single column */
+    .content-wrapper {
+      display: block !important;
+      grid-template-columns: 1fr !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    /* 8. Menyembunyikan breadcrumb */
+    .breadcrumbs-tech {
+      display: none !important;
+    }
+    
+    /* 9. Menyembunyikan post meta info */
+    .post-footer-line,
+    .post-meta,
+    .post-footer {
+      display: none !important;
+    }
+    
+    /* 10. Menyembunyikan share buttons */
+    .share-buttons-container {
+      display: none !important;
+    }
+    
+    /* 11. Menyembunyikan related posts */
+    .Gridspeed {
+      display: none !important;
+    }
+    
+    /* 12. Menyembunyikan iklan sections */
+    #ads_below_header,
+    .ads-section,
+    #ads_in_article_1,
+    #ads_in_article_2,
+    #footer-iklan-slot {
+      display: none !important;
+    }
+    
+    /* 13. Styling khusus untuk konten landing page */
+    .page .post-body,
+    .page .post-footer {
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+    }
+    
+    /* 14. Menghilangkan batasan width pada post body */
+    .page .post-body.entry-content {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding: 0 !important;
+    }
+    
+    /* 15. Menyembunyikan elemen post grid */
+    .page .post-grid,
+    .page .post-thumbnail-side,
+    .page .read-more {
+      display: none !important;
+    }
+    
+    /* 16. Judul halaman landing page */
+    .page .post-title {
+      text-align: center !important;
+      margin-bottom: 30px !important;
+      padding-bottom: 15px !important;
+      border-bottom: 2px solid var(--primary-color) !important;
+      font-size: 2.5rem !important;
+    }
+    
+    /* 17. Full width untuk semua elemen konten landing page */
+    .landing-page-content {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+    
+    /* 18. Menyembunyikan pagination */
+    .blog-pager {
+      display: none !important;
+    }
+    
+    /* 19. Menyembunyikan comment section */
+    .comments {
+      display: none !important;
+    }
+    
+    /* 20. Menyembunyikan widget PopularPosts di sidebar bawah header */
+    #PopularPosts2 {
+      display: none !important;
+    }
+    
+    /* 21. Menyembunyikan widget FeaturedPost di bawah header */
+    #FeaturedPost1 {
+      display: none !important;
+    }
+    
+    /* 22. Dark mode tetap berfungsi untuk landing page */
+    .dark-mode .landing-page-content {
+      background-color: var(--main-bg-color) !important;
+      color: var(--text-color-white) !important;
+    }
+    
+    /* 23. Pastikan header utama tetap tampil */
+    .main-header {
+      display: block !important;
+    }
+    
+    /* 24. Pastikan footer tetap tampil */
+    .site-footer {
+      display: block !important;
+    }
   </style>
 </b:if>
   
+  <!-- Tambahkan di bagian HEAD setelah kode CSS yang sudah ada -->
+<b:if cond='data:view.isPage'>
+  <style>
+    /* 1. Menghilangkan Sidebar */
+    #sidebar-wrapper{display: none !important;}
+    
+    /* 2. Menghilangkan postingan blog biasa */
+    .blog-posts .post-outer-container:not(.page) {display: none !important; }
+    
+    /* 3. Membuat main content full width */
+    #main-wrapper {  
+      width: 100% !important; 
+      max-width: none !important;
+      float: none !important; 
+      margin: 0 !important;
+      padding: 0 !important;
+    } 
+    
+    /* 4. Mengatur layout content wrapper menjadi single column */
+    .content-wrapper { 
+      display: block !important;
+      grid-template-columns: 1fr !important;
+      max-width: 1000px !important;
+      margin: 0 auto !important;
+    }
+    
+    /* 5. Mengatur tampilan halaman page */
+    .page .post-body,
+    .page .post-footer {
+      max-width: 1000px !important; 
+      margin: 0 auto !important; 
+      padding: 20px !important;
+      box-sizing: border-box !important;
+    }
+    
+    /* 6. Menyembunyikan elemen yang tidak diperlukan di halaman page */
+    .page .post-grid,
+    .page .post-thumbnail-side,
+    .page .read-more {
+      display: none !important;
+    }
+    
+    /* 7. Mengatur judul halaman page */
+    .page .post-title {
+      text-align: center !important;
+      margin-bottom: 30px !important;
+      padding-bottom: 15px !important;
+      border-bottom: 2px solid var(--primary-color) !important;
+    }
+    
+    /* 8. Full width untuk konten halaman */
+    .page .post-body.entry-content {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding: 0 15px !important;
+    }
+  </style>
+</b:if>
+
+<!-- Tambahkan juga styling khusus untuk halaman parse code -->
+<b:if cond='data:blog.pageName == &quot;HTML Parse Codes&quot;'>
+  <style>
+    .html-parser-wrapper {
+      background: #f8f9fa !important;
+      border: 1px solid #e9ecef !important;
+      border-radius: 8px !important;
+      padding: 20px !important;
+      margin: 20px 0 !important;
+    }
+    
+    .html-parser-textarea {
+      width: 100% !important;
+      min-height: 300px !important;
+      font-family: &#39;Courier New&#39;, monospace !important;
+      font-size: 14px !important;
+      border: 1px solid #ced4da !important;
+      border-radius: 4px !important;
+      padding: 10px !important;
+      resize: vertical !important;
+    }
+    
+    .html-parser-buttons {
+      display: flex !important;
+      gap: 10px !important;
+      margin-top: 15px !important;
+      flex-wrap: wrap !important;
+    }
+    
+    .parse-btn {
+      background: var(--primary-color) !important;
+      color: white !important;
+      border: none !important;
+      padding: 10px 20px !important;
+      border-radius: 4px !important;
+      cursor: pointer !important;
+      font-weight: bold !important;
+      transition: background 0.3s ease !important;
+    }
+    
+    .parse-btn:hover {
+      background: var(--primary-dark) !important;
+    }
+  </style>
+</b:if>
+  <b:if cond='data:view.isPage'>
+  <style>
+    /* 1. Menghilangkan Sidebar */
+#sidebar-wrapper {display: none !important;}
+.blog-posts .post-outer-container:not(.page) {display: none !important; }
+#main-wrapper {  width: 100% !important; max-width: none !important;float: none !important; /margin: 0 !important;padding: 0 !important;} .content-wrapper { display: grid
+;grid-template-columns: 2fr;}
+.page .post-body,.page .post-footer {max-width: 1000px; margin: 0 auto !important; padding: 20px;box-sizing: border-box; }
+  </style>
+</b:if>
   <b:if cond='data:blog.pageType == &quot;item&quot;'>
 <style>
 h3.post-title.entry-title {
   font-size: 25px !important;
 }
+.entry-content { margin-top: 25px !important;}
 </style>
 </b:if>
-  <b:if cond='data:blog.pageType == &quot;item&quot;'>
-  <style>
- .entry-content { margin-top: 25px !important;}
-  </style>
-</b:if>
-
 </head>
 <body>
 <script type='application/ld+json'>
+<![CDATA[
 {
-  &quot;@context&quot;: &quot;https://schema.org&quot;,
-  &quot;@type&quot;: &quot;Organization&quot;,
-  &quot;name&quot;: &quot;<data:blog.title/>&quot;,
-  &quot;url&quot;: &quot;<data:blog.homepageUrl/>&quot;,
-  &quot;logo&quot;: &quot;https://yourblog.com/logo.png&quot;,
-  &quot;description&quot;: &quot;<data:blog.metaDescription/>&quot;,
-  &quot;sameAs&quot;: [
-    &quot;https://facebook.com/yourpage&quot;,
-    &quot;https://twitter.com/yourhandle&quot;,
-    &quot;https://instagram.com/yourprofile&quot;,
-    &quot;https://youtube.com/yourchannel&quot;
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://inteknologi.com/#organization",
+  "name": "<data:blog.title/>",
+  "url": "<data:blog.homepageUrl/>",
+  "logo": "https://inteknologi.com/logo.png",
+  "description": "<data:blog.metaDescription/>",
+  "sameAs": [
+    "https://facebook.com/inteknologi",
+    "https://twitter.com/inteknologi",
+    "https://instagram.com/inteknologi",
+    "https://youtube.com/inteknologi"
   ],
-  &quot;contactPoint&quot;: {
-    &quot;@type&quot;: &quot;ContactPoint&quot;,
-    &quot;email&quot;: &quot;contact@yourblog.com&quot;,
-    &quot;contactType&quot;: &quot;customer service&quot;
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "contact@inteknologi.com",
+    "contactType": "customer service",
+    "url": "https://inteknologi.com/contact"
   }
 }
+]]>
 </script>
-
 <b:if cond='data:blog.pageType == &quot;item&quot;'>
 <!-- ===== BLOGPOSTING STRUCTURED DATA ===== -->
 <script type='application/ld+json'>
@@ -761,7 +975,6 @@ h3.post-title.entry-title {
   }
 }
 </script>
-
 <!-- ===== BREADCRUMB STRUCTURED DATA ===== -->
 <script type='application/ld+json'>
 {
@@ -790,7 +1003,6 @@ h3.post-title.entry-title {
 }
 </script>
 </b:if>
-
 <!-- Blog Schema for Homepage -->
 <b:if cond='data:blog.url == data:blog.homepageUrl'>
 <script type='application/ld+json'>
@@ -873,19 +1085,21 @@ h3.post-title.entry-title {
 <b:section class='main-navigation' id='navbar-menu' maxwidgets='1' showaddelement='yes'>
   <b:widget id='LinkList1' locked='false' title='Menu Utama' type='LinkList' version='1'>
     <b:widget-settings>
-      <b:widget-setting name='link-5'>/search/label/Media%20sosial</b:widget-setting>
-      <b:widget-setting name='link-3'>/search/label/komputer</b:widget-setting>
-      <b:widget-setting name='link-4'>https://www.inteknologi.com/p/html-parse-codes.html</b:widget-setting>
-      <b:widget-setting name='text-1'>Template</b:widget-setting>
-      <b:widget-setting name='text-0'>Blog</b:widget-setting>
-      <b:widget-setting name='text-3'>Komputer</b:widget-setting>
-      <b:widget-setting name='text-2'>Teknologi</b:widget-setting>
-      <b:widget-setting name='text-5'>Sosial-Media</b:widget-setting>
-      <b:widget-setting name='text-4'>Pharse Code</b:widget-setting>
+      <b:widget-setting name='link-5'>https://www.inteknologi.com/p/html-parse-codes.html</b:widget-setting>
+      <b:widget-setting name='link-6'>/search/label/Media%20sosial</b:widget-setting>
+      <b:widget-setting name='link-3'>/search/label/teknologi</b:widget-setting>
+      <b:widget-setting name='link-4'>/search/label/komputer</b:widget-setting>
+      <b:widget-setting name='text-1'>Blog</b:widget-setting>
+      <b:widget-setting name='text-0'>Beranda</b:widget-setting>
+      <b:widget-setting name='text-3'>Teknologi</b:widget-setting>
+      <b:widget-setting name='text-2'>Template</b:widget-setting>
+      <b:widget-setting name='text-5'>Pharse Code</b:widget-setting>
+      <b:widget-setting name='text-4'>Komputer</b:widget-setting>
+      <b:widget-setting name='text-6'>Sosial-Media</b:widget-setting>
       <b:widget-setting name='sorting'>NONE</b:widget-setting>
-      <b:widget-setting name='link-1'>/search/label/Template</b:widget-setting>
-      <b:widget-setting name='link-2'>/search/label/teknologi</b:widget-setting>
-      <b:widget-setting name='link-0'>/search/label/blogging</b:widget-setting>
+      <b:widget-setting name='link-1'>/search/label/blogging</b:widget-setting>
+      <b:widget-setting name='link-2'>/search/label/Template</b:widget-setting>
+      <b:widget-setting name='link-0'>https://www.inteknologi.com/p/beranda.html</b:widget-setting>
     </b:widget-settings>
     <b:includable id='main'>
             <div class='menu-wrapper'>
@@ -919,7 +1133,6 @@ h3.post-title.entry-title {
     <span class='visually-hidden'>Menu</span>
   </button>
 </div>
-
   </div>
   </div>
 </header>
@@ -960,17 +1173,13 @@ h3.post-title.entry-title {
   <img alt='Featured image' class='image' expr:src='data:postFirstImage'/>
 </b:if>
   </div>
-
   <style type='text/css'>
-    .image {
-      width: 100%;
-    }
+    .image {width: 100%;}
   </style>
 </b:includable>
         </b:widget>
       </b:section>
     </section>
-
     <!-- Sidebar Tambahan (ID unik) -->
     <aside class='sidebar sidebar-below-header' id='sidebar-below-header' itemscope='itemscope' itemtype='https://schema.org/WPSideBar' style='flex:1 1 30%;'>
       <b:section class='sidebar-section-below-header' id='sidebar_below_header' name='Sidebar Tambahan di Bawah Header' preferred='yes' showaddelement='yes'>
@@ -1024,11 +1233,10 @@ h3.post-title.entry-title {
         </b:widget>
       </b:section>
     </aside>
-
   </div>
 </div></b:if>
 <b:section class='ads-section' id='ads_below_header' name='Iklan di Bawah Header' showaddelement='yes'>
-  <b:widget id='HTML1' locked='false' title='' type='HTML'>
+  <b:widget id='HTML1' locked='false' title='' type='HTML' version='1'>
     <b:widget-settings>
       <b:widget-setting name='content'>Pasang Iklan  Ads Disini</b:widget-setting>
     </b:widget-settings>
@@ -1040,7 +1248,6 @@ h3.post-title.entry-title {
   <div class='widget-content'>
     <data:content/>
   </div>
-
   <b:include name='quickedit'/>
 </b:includable>
   </b:widget>
@@ -2123,7 +2330,6 @@ h3.post-title.entry-title {
   <!-- FOOTER -->
 <footer class='Fastgrid-footer'>
   <div class='footer-content'>
-    
     <!-- Section untuk Menu Footer -->
     <b:section class='footer-menu-section' id='FooterMenu' maxwidgets='1' showaddelement='yes'>
       <b:widget id='LinkList100' locked='false' title='Footer Menu' type='LinkList' version='2' visible='true'>
@@ -2165,74 +2371,65 @@ h3.post-title.entry-title {
 </b:includable>
       </b:widget>
     </b:section>
-
     <!-- Section untuk Media Sosial -->
     <b:section class='social-media-section' id='FooterSocial' maxwidgets='1' showaddelement='yes'>
       <b:widget id='HTML100' locked='false' title='' type='HTML' version='1'>
         <b:widget-settings>
           <b:widget-setting name='content'><![CDATA[<div class='social-icons' itemprop='publisher' itemscope='itemscope' itemtype='https://schema.org/Organization'>
  
-  <!-- Facebook -->
   <a aria-label='Facebook' href='https://facebook.com/yourpage' itemprop='sameAs' rel='noopener nofollow' target='_blank'>
     <svg viewbox='0 0 448 512' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
       <path d='M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l98.2 0 0-145.8-52.8 0 0-78.2 52.8 0 0-33.7c0-87.1 39.4-127.5 125-127.5 16.2 0 44.2 3.2 55.7 6.4l0 70.8c-6-.6-16.5-1-29.6-1-42 0-58.2 15.9-58.2 57.2l0 27.8 83.6 0-14.4 78.2-69.3 0 0 145.8 129 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32z' fill='currentColor'/>
     </path></svg>
   </a>
-  
-  <!-- Twitter -->
+
   <a aria-label='Twitter' href='https://twitter.com/yourhandle' itemprop='sameAs' rel='noopener nofollow' target='_blank'>
     <svg viewbox='0 0 448 512' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
       <path d='M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zm297.1 84l-103.8 118.6 122.1 161.4-95.6 0-74.8-97.9-85.7 97.9-47.5 0 111-126.9-117.1-153.1 98 0 67.7 89.5 78.2-89.5 47.5 0zM323.3 367.6l-169.9-224.7-28.3 0 171.8 224.7 26.4 0z' fill='currentColor'/>
     </path></svg>
   </a>
   
-  <!-- Instagram -->
   <a aria-label='Instagram' href='https://instagram.com/yourprofile' itemprop='sameAs' rel='noopener nofollow' target='_blank'>
     <svg viewbox='0 0 448 512' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
       <path d='M194.4 211.7a53.3 53.3 0 1 0 59.2 88.6 53.3 53.3 0 1 0 -59.2-88.6zm142.3-68.4c-5.2-5.2-11.5-9.3-18.4-12-18.1-7.1-57.6-6.8-83.1-6.5-4.1 0-7.9 .1-11.2 .1s-7.2 0-11.4-.1c-25.5-.3-64.8-.7-82.9 6.5-6.9 2.7-13.1 6.8-18.4 12s-9.3 11.5-12 18.4c-7.1 18.1-6.7 57.7-6.5 83.2 0 4.1 .1 7.9 .1 11.1s0 7-.1 11.1c-.2 25.5-.6 65.1 6.5 83.2 2.7 6.9 6.8 13.1 12 18.4s11.5 9.3 18.4 12c18.1 7.1 57.6 6.8 83.1 6.5 4.1 0 7.9-.1 11.2-.1s7.2 0 11.4 .1c25.5 .3 64.8 .7 82.9-6.5 6.9-2.7 13.1-6.8 18.4-12s9.3-11.5 12-18.4c7.2-18 6.8-57.4 6.5-83 0-4.2-.1-8.1-.1-11.4s0-7.1 .1-11.4c.3-25.5 .7-64.9-6.5-83-2.7-6.9-6.8-13.1-12-18.4l0 .2zm-67.1 44.5c18.1 12.1 30.6 30.9 34.9 52.2s-.2 43.5-12.3 61.6c-6 9-13.7 16.6-22.6 22.6s-19 10.1-29.6 12.2c-21.3 4.2-43.5-.2-61.6-12.3s-30.6-30.9-34.9-52.2 .2-43.5 12.2-61.6 30.9-30.6 52.2-34.9 43.5 .2 61.6 12.2l.1 0zm29.2-1.3c-3.1-2.1-5.6-5.1-7.1-8.6s-1.8-7.3-1.1-11.1 2.6-7.1 5.2-9.8 6.1-4.5 9.8-5.2 7.6-.4 11.1 1.1 6.5 3.9 8.6 7 3.2 6.8 3.2 10.6c0 2.5-.5 5-1.4 7.3s-2.4 4.4-4.1 6.2-3.9 3.2-6.2 4.2-4.8 1.5-7.3 1.5c-3.8 0-7.5-1.1-10.6-3.2l-.1 0zM448 96c0-35.3-28.7-64-64-64L64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320zM357 389c-18.7 18.7-41.4 24.6-67 25.9-26.4 1.5-105.6 1.5-132 0-25.6-1.3-48.3-7.2-67-25.9s-24.6-41.4-25.8-67c-1.5-26.4-1.5-105.6 0-132 1.3-25.6 7.1-48.3 25.8-67s41.5-24.6 67-25.8c26.4-1.5 105.6-1.5 132 0 25.6 1.3 48.3 7.1 67 25.8s24.6 41.4 25.8 67c1.5 26.3 1.5 105.4 0 131.9-1.3 25.6-7.1 48.3-25.8 67l0 .1z' fill='currentColor'/>
     </path></svg>
   </a>
   
-  <!-- YouTube -->
   <a aria-label='YouTube' href='https://youtube.com/yourchannel' itemprop='sameAs' rel='noopener nofollow' target='_blank'>
     <svg viewbox='0 0 448 512' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
       <path d='M282 256.2l-95.2-54.1 0 108.2 95.2-54.1zM384 32L64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64zm14.4 136.1c7.6 28.6 7.6 88.2 7.6 88.2s0 59.6-7.6 88.1c-4.2 15.8-16.5 27.7-32.2 31.9-28.3 7.7-142.2 7.7-142.2 7.7s-113.9 0-142.2-7.6c-15.7-4.2-28-16.1-32.2-31.9-7.6-28.6-7.6-88.2-7.6-88.2s0-59.7 7.6-88.2c4.2-15.8 16.5-28.2 32.2-32.4 28.3-7.7 142.2-7.7 142.2-7.7s113.9 0 142.2 7.7c15.7 4.2 28 16.6 32.2 32.4z' fill='currentColor'/>
     </path></svg>
   </a>
   
-  <!-- Pinterest -->
   <a aria-label='Pinterest' href='https://pinterest.com/yourprofile' itemprop='sameAs' rel='noopener nofollow' target='_blank'>
     <svg viewbox='0 0 448 512' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
       <path d='M384 32L64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l72.6 0-2.2-.8c-5.4-48.1-3.1-57.5 15.7-134.7 3.9-16 8.5-35 13.9-57.9 0 0-7.3-14.8-7.3-36.5 0-70.7 75.5-78 75.5-25 0 13.5-5.4 31.1-11.2 49.8-3.3 10.6-6.6 21.5-9.1 32-5.7 24.5 12.3 44.4 36.4 44.4 43.7 0 77.2-46 77.2-112.4 0-58.8-42.3-99.9-102.6-99.9-69.9 0-110.9 52.4-110.9 106.6 0 21.1 8.2 43.7 18.3 56 2 2.4 2.3 4.5 1.7 7-1.1 4.7-3.1 12.9-4.7 19.2-1 4-1.8 7.3-2.1 8.6-1.1 4.5-3.5 5.5-8.2 3.3-30.6-14.3-49.8-59.1-49.8-95.1 0-77.5 56.2-148.6 162.2-148.6 85.2 0 151.4 60.7 151.4 141.8 0 84.6-53.3 152.7-127.4 152.7-24.9 0-48.3-12.9-56.3-28.2 0 0-12.3 46.9-15.3 58.4-5 19.3-17.6 42.9-27.4 59.3L384 480c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64z' fill='currentColor'/>
     </path></svg>
   </a>
+
 </div>]]></b:widget-setting>
         </b:widget-settings>
         <b:includable id='main'>
           <div class='social-icons' itemprop='publisher' itemscope='itemscope' itemtype='https://schema.org/Organization'>
             <meta content='Inteknologi' itemprop='name'/>
-            
             <!-- Facebook -->
             <a aria-label='Facebook' href='https://facebook.com/yourpage' itemprop='sameAs' rel='noopener nofollow' target='_blank'>
               <svg aria-hidden='true' viewBox='0 0 448 512' xmlns='http://www.w3.org/2000/svg'>
                 <path d='M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l98.2 0 0-145.8-52.8 0 0-78.2 52.8 0 0-33.7c0-87.1 39.4-127.5 125-127.5 16.2 0 44.2 3.2 55.7 6.4l0 70.8c-6-.6-16.5-1-29.6-1-42 0-58.2 15.9-58.2 57.2l0 27.8 83.6 0-14.4 78.2-69.3 0 0 145.8 129 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32z' fill='currentColor'/>
               </svg>
-            </a>
-            
+            </a>  
             <!-- Twitter -->
             <a aria-label='Twitter' href='https://twitter.com/yourhandle' itemprop='sameAs' rel='noopener nofollow' target='_blank'>
               <svg aria-hidden='true' viewBox='0 0 448 512' xmlns='http://www.w3.org/2000/svg'>
                 <path d='M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zm297.1 84l-103.8 118.6 122.1 161.4-95.6 0-74.8-97.9-85.7 97.9-47.5 0 111-126.9-117.1-153.1 98 0 67.7 89.5 78.2-89.5 47.5 0zM323.3 367.6l-169.9-224.7-28.3 0 171.8 224.7 26.4 0z' fill='currentColor'/>
               </svg>
             </a>
-            
             <!-- Instagram -->
             <a aria-label='Instagram' href='https://instagram.com/yourprofile' itemprop='sameAs' rel='noopener nofollow' target='_blank'>
               <svg aria-hidden='true' viewBox='0 0 448 512' xmlns='http://www.w3.org/2000/svg'>
                 <path d='M194.4 211.7a53.3 53.3 0 1 0 59.2 88.6 53.3 53.3 0 1 0 -59.2-88.6zm142.3-68.4c-5.2-5.2-11.5-9.3-18.4-12-18.1-7.1-57.6-6.8-83.1-6.5-4.1 0-7.9 .1-11.2 .1s-7.2 0-11.4-.1c-25.5-.3-64.8-.7-82.9 6.5-6.9 2.7-13.1 6.8-18.4 12s-9.3 11.5-12 18.4c-7.1 18.1-6.7 57.7-6.5 83.2 0 4.1 .1 7.9 .1 11.1s0 7-.1 11.1c-.2 25.5-.6 65.1 6.5 83.2 2.7 6.9 6.8 13.1 12 18.4s11.5 9.3 18.4 12c18.1 7.1 57.6 6.8 83.1 6.5 4.1 0 7.9-.1 11.2-.1s7.2 0 11.4 .1c25.5 .3 64.8 .7 82.9-6.5 6.9-2.7 13.1-6.8 18.4-12s9.3-11.5 12-18.4c7.2-18 6.8-57.4 6.5-83 0-4.2-.1-8.1-.1-11.4s0-7.1 .1-11.4c.3-25.5 .7-64.9-6.5-83-2.7-6.9-6.8-13.1-12-18.4l0 .2zm-67.1 44.5c18.1 12.1 30.6 30.9 34.9 52.2s-.2 43.5-12.3 61.6c-6 9-13.7 16.6-22.6 22.6s-19 10.1-29.6 12.2c-21.3 4.2-43.5-.2-61.6-12.3s-30.6-30.9-34.9-52.2 .2-43.5 12.2-61.6 30.9-30.6 52.2-34.9 43.5 .2 61.6 12.2l.1 0zm29.2-1.3c-3.1-2.1-5.6-5.1-7.1-8.6s-1.8-7.3-1.1-11.1 2.6-7.1 5.2-9.8 6.1-4.5 9.8-5.2 7.6-.4 11.1 1.1 6.5 3.9 8.6 7 3.2 6.8 3.2 10.6c0 2.5-.5 5-1.4 7.3s-2.4 4.4-4.1 6.2-3.9 3.2-6.2 4.2-4.8 1.5-7.3 1.5c-3.8 0-7.5-1.1-10.6-3.2l-.1 0zM448 96c0-35.3-28.7-64-64-64L64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320zM357 389c-18.7 18.7-41.4 24.6-67 25.9-26.4 1.5-105.6 1.5-132 0-25.6-1.3-48.3-7.2-67-25.9s-24.6-41.4-25.8-67c-1.5-26.4-1.5-105.6 0-132 1.3-25.6 7.1-48.3 25.8-67s41.5-24.6 67-25.8c26.4-1.5 105.6-1.5 132 0 25.6 1.3 48.3 7.1 67 25.8s24.6 41.4 25.8 67c1.5 26.3 1.5 105.4 0 131.9-1.3 25.6-7.1 48.3-25.8 67l0 .1z' fill='currentColor'/>
               </svg>
             </a>
-            
             <!-- YouTube -->
             <a aria-label='YouTube' href='https://youtube.com/yourchannel' itemprop='sameAs' rel='noopener nofollow' target='_blank'>
               <svg aria-hidden='true' viewBox='0 0 448 512' xmlns='http://www.w3.org/2000/svg'>
@@ -2540,6 +2737,21 @@ if (document.querySelector(&#39;pre code&#39;)) {
     };
     document.head.appendChild(script);
 }
+</script>
+  <script>
+// Sembunyikan judul hanya di halaman beranda.html
+document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
+    // Cek jika URL mengandung &#39;beranda.html&#39;
+    if (window.location.href.indexOf(&#39;beranda.html&#39;) &gt; -1 || 
+        window.location.href.indexOf(&#39;p/beranda&#39;) &gt; -1) {
+        
+        // Sembunyikan judul
+        var judul = document.querySelector(&#39;h2.post-title.entry-title&#39;);
+        if (judul) {
+            judul.style.display = &#39;none&#39;;
+        }
+    }
+});
 </script>
 </body>
 </html>
