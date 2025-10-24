@@ -1,17 +1,5 @@
 # 🚀 FastGrid - Blogger Template
 
-<div align="center">
-
-![FastGrid Banner](https://via.placeholder.com/800x200/2563eb/ffffff?text=FastGrid+-+Ultra+Fast+Blogger+Template)
-  
-**Lightning Fast | SEO Optimized | Mobile First**
-
-[![Download](https://img.shields.io/badge/Download-Template-blue.svg)](#download)
-[![Version](https://img.shields.io/badge/Version-1.0-green.svg)](#)
-[![License](https://img.shields.io/badge/License-Free-brightgreen.svg)](#license)
-
-</div>
-
 ## ✨ Features
 
 ### ⚡ Performance
@@ -37,3 +25,12 @@
 - **Bottom Navigation** - Mobile-friendly menu
 - **Touch Optimized** - Smooth interactions
 - **Fast TTFB** - Optimized for mobile networks
+<div align="center">
+  
+**Lightning Fast | SEO Optimized | Mobile First**
+
+1. **Download Template**  
+   [Click here to download](https://github.com/Sutrisnot/Fastgrid-Template/archive/refs/heads/main.zip)
+
+2. **Follow Installation Guide**  
+   [View detailed tutorial](https://www.inteknologi.com/2025/10/cara-instal-template-gridspeed-pada.html)
