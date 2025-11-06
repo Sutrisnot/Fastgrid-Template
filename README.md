@@ -7,7 +7,8 @@
 ##ChangeLog  
 - Ubah Thumbnail Entry-content Jadi Zigzag
 - Perbaikan Bullet Point dan Numbering
-[Cara Instal](https://www.inteknologi.com/2025/10/cara-instal-template-gridspeed-pada.html) 
+  
+##[Cara Instal](https://www.inteknologi.com/2025/10/cara-instal-template-gridspeed-pada.html) 
 
 
 [Setting Template](#)  
