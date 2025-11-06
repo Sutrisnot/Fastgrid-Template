@@ -4,8 +4,10 @@
 
 [🔄 Download Template GridSpeed](https://github.com/Sutrisnot/Fastgrid-Template/archive/refs/heads/main.zip)
 
-
-[Cara Instal](#) 
+##ChangeLog  
+- Ubah Thumbnail Entry-content Jadi Zigzag
+- Perbaikan Bullet Point dan Numbering
+[Cara Instal](https://www.inteknologi.com/2025/10/cara-instal-template-gridspeed-pada.html) 
 
 
 [Setting Template](#)  
