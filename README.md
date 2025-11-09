@@ -11,10 +11,12 @@
 
   ### 07-11-2025
 - Perbaiki Layout
+  ### 09-11-2025
+- Perbaikan Entry-Content
+- Perbaiki Dark-mode
   
 ## [Cara Instal](https://www.inteknologi.com/2025/10/cara-instal-template-gridspeed-pada.html) 
 
-
-[Setting Template](#)  
+[Setting Template](https://www.inteknologi.com/2025/10/cara-setting-template-fastgrid.html)  
   
 
